@@ -26,7 +26,7 @@ let modInfo = {
 }
 
 let VERSION = {
-	num: "1.0.0",
+	num: "1.0.1",
 	name: "Release",
 }
 
