@@ -13,6 +13,7 @@ let modInfo = {
 
 		files.push("layers/accelerator.js")
 		files.push("layers/table.js")
+		files.push("layers/achievements.js")
 		files.push("tree.js")
 
 		return files
@@ -26,13 +27,12 @@ let modInfo = {
 
 let VERSION = {
 	num: "1.0.0",
-	name: "Literally nothing",
+	name: "Release",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+let changelog = [
+	...getChangelogContent(),
+]
 
 let winText = `Congratulations! You have aquired all isotopes, for now...`
 
@@ -57,7 +57,7 @@ let displayThings = [
 ]
 
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return hasUpgrade("H", 35)
 }
 
 const backgroundStyle = {

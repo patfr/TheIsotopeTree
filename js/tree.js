@@ -1,5 +1,5 @@
 var layoutInfo = {
-    startTab: "Table",
+    startTab: "none",
     startNavTab: "tree-tab",
 	showTree: true,
     treeLayout: "",
@@ -14,6 +14,12 @@ addLayer("tree-tab", {
         Accelerator: {
             embedLayer: "accelerator",
             buttonStyle: { "border-color": "#559bb5" },
+            unlocked: () => hasUpgrade("H", 15) || player.accelerator.points.gte(2),
+        },
+        Achievements: {
+            embedLayer: "achievements",
+            buttonStyle: { "border-color": "#f0e269" },
+            unlocked: () => hasUpgrade("H", 34),
         },
         ...(() => {
             const elementTabs = []
