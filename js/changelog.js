@@ -1,8 +1,20 @@
 "use strict";
 
 const changelogContent = {
+    "v1.0.1": {
+        date: "03/11/24",
+        fixes: [
+            "Achievements now show when they should",
+            "Hydrogen Upgrade V no longer shows effect when it shouldn't",
+        ],
+        technical: [
+            "Added fixes to the changelog system",
+            "Added date to the changelog system",
+        ],
+    },
     "v1.0.0": {
         title: "Release",
+        date: "03/11/24",
         added: [
             "Hydrogen Layer", 
             "Hydrogen Isotopes", 
@@ -31,22 +43,28 @@ function getChangelogContent() {
         const changelog = changelogContent[version]
 
         content.push(["raw-html", changelog.title 
-            ? `<h2 style="color: #ff7369">${version} - ${changelog.title}</h2>` 
-            : `<h2 style="color: #ff7369">${version}</h2>`], "blank", "blank")
+            ? `<h2 style="color: #ff7369">${version} - ${changelog.title} - ${changelog.date}</h2>` 
+            : `<h2 style="color: #ff7369">${version} - ${changelog.date}</h2>`], "blank", "blank")
 
-        if (changelog.added.length > 0) {
+        if (changelog.added && changelog.added.length > 0) {
             content.push(["raw-html", "<h3 style='color:#84ff69'>Added</h3>"], "blank")
 
             content.push(["raw-html", `<ul style="padding-left: 0">${changelog.added.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`], "blank")
         }
 
-        if (changelog.changed.length > 0) {
+        if (changelog.changed && changelog.changed.length > 0) {
             content.push(["raw-html", "<h3 style='color:#e6c377'>Changed</h3>"], "blank")
 
             content.push(["raw-html", `<ul style="padding-left: 0">${changelog.changed.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`], "blank")
         }
 
-        if (changelog.technical.length > 0) {
+        if (changelog.fixes && changelog.fixes.length > 0) {
+            content.push(["raw-html", "<h3 style='color:#f2e97e'>Fixes</h3>"], "blank")
+
+            content.push(["raw-html", `<ul style="padding-left: 0">${changelog.fixes.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`], "blank")
+        }
+
+        if (changelog.technical && changelog.technical.length > 0) {
             content.push(["raw-html", "<h3 style='color: #77e6da'>Technical</h3>"], "blank")
 
             content.push(["raw-html", `<ul style="padding-left: 0">${changelog.technical.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`])
