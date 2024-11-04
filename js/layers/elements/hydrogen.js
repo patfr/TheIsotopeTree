@@ -68,7 +68,7 @@
             11: {
                 title: "Hydrogen Upgrade I",
                 description() { return !hasUpgrade("H", 24) ? "Double Hydrogen gain." : "Triple Hydrogen gain." },
-                cost: new Decimal(30),
+                cost: new Decimal(15),
                 unlocked() { return true },
                 effect() { return hasUpgrade("H", 24) ? new Decimal(3) : new Decimal(2) },
                 style: sharedUpgradeStyles,
@@ -76,7 +76,7 @@
             12: {
                 title: "Hydrogen Upgrade II",
                 description: "Add +1 to base Hydrogen gain.",
-                cost: new Decimal(60),
+                cost: new Decimal(30),
                 unlocked() { return hasUpgrade("H", 11) },
                 effect() { return new Decimal(1) },
                 style: sharedUpgradeStyles,
@@ -84,7 +84,7 @@
             13: {
                 title: "Hydrogen Upgrade III",
                 description: "Log10(Hydrogen + 1) multiplies Hydrogen gain.",
-                cost: new Decimal(120),
+                cost: new Decimal(80),
                 unlocked() { return hasUpgrade("H", 12) },
                 effect() { return Decimal.max(player.H.points.add(1).log10(), 1) },
                 effectDisplay() { return format(upgradeEffect("H", 13)) + "x" },
