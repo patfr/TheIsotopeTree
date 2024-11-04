@@ -27,7 +27,7 @@
         getNextAt() {
             return new Decimal(0)
         },
-        prestigeButtonText() { return tmp.accelerator.canReset ? "Reset progress but fuse you elements together for an additional Isotope" : "Requirement(s) are not met" },
+        prestigeButtonText() { return tmp.accelerator.canReset ? "Reset progress but fuse all your elements together for an additional Isotope" : "Requirement(s) are not met" },
         canReset() {
             const requirements = acceleratorRequirements[Math.round(player.points.toNumber())] ?? []
             let canReset = true

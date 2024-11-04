@@ -1,6 +1,18 @@
 "use strict";
 
 const changelogContent = {
+    "v1.0.2": {
+        date: "04/11/24",
+        balancing: [
+            "The price ofthe first three Hydrogen upgrades has been reduced",
+        ],
+        fixes: [
+            "Fixed a typo in The Particle Accelerator reset message",
+        ],
+        technical: [
+            "Added balancing to the changelog system",
+        ],
+    },
     "v1.0.1": {
         date: "03/11/24",
         fixes: [
@@ -62,6 +74,12 @@ function getChangelogContent() {
             content.push(["raw-html", "<h3 style='color:#f2e97e'>Fixes</h3>"], "blank")
 
             content.push(["raw-html", `<ul style="padding-left: 0">${changelog.fixes.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`], "blank")
+        }
+
+        if (changelog.balancing && changelog.balancing.length > 0) {
+            content.push(["raw-html", "<h3 style='color:#f3ff73'>Balancing</h3>"], "blank")
+
+            content.push(["raw-html", `<ul style="padding-left: 0">${changelog.balancing.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`], "blank")
         }
 
         if (changelog.technical && changelog.technical.length > 0) {
