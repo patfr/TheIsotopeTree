@@ -89,10 +89,8 @@
                         "blank",
                         ["raw-html", "Meet the requirements to unlock new isotopes. <br>Using The Particle Accelerator will reset unless specified, <br>but gain milestones providing boosts."],
                         "blank",
-                        "prestige-button",
+                        "particle-accelerator",
                         "blank",
-                        ["raw-html", "<i>Visual design for The Particle Accelerator coming v1.1.0</i>"],
-                        "blank"
                     ]
 
                     requirements.forEach(requirement => {

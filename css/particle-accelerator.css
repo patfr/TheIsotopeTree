@@ -1,0 +1,43 @@
+#particle-accelerator-container {
+    width: 100%;
+    min-width: 750px;
+    aspect-ratio: 1 / 1;
+    margin: 20px;
+}
+
+#outer-ring {
+    border: 25px solid #bfbfbf;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    transform: scale(1.01);
+}
+
+#middle-ring {
+    border: 25px solid #3ef2ff;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    transform: scale(1.01);
+}
+
+#inner-ring {
+    border: 25px solid #9f9f9f;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    transform: scale(1.01);
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring-spoke {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 20%;
+    border-left: 100px;
+    border-right: 100px;
+    border-top: 0;
+    border-bottom: 0;
+    border-color: #7f7f7f;
+    border-style: solid;
+}

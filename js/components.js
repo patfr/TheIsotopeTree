@@ -597,6 +597,49 @@ function loadVue() {
 	`
 	})
 
+	Vue.component('particle-accelerator', {
+		props: ['layer', 'data'],
+		template: `
+			<div id="particle-accelerator-container">
+				<div id="outer-ring">
+					<div id="middle-ring">
+						<div id="inner-ring">
+							<div class="ring-spoke" style="transform: rotate(0deg)"></div>
+							<div class="ring-spoke" style="transform: rotate(45deg)"></div>
+							<div class="ring-spoke" style="transform: rotate(90deg)"></div>
+							<div class="ring-spoke" style="transform: rotate(135deg)"></div>
+							<div id="activation-content-container">
+								<table id="activation-content">
+									<tr>
+										<td>
+											<div v-bind:class="{ 'accelerator-content-requirement': true, 'requirement-met': data }"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<bar :layer = "layer" data = "1"></bar>
+										</td>
+										<td>
+											<prestige-button :layer = "layer" v-bind:style="tmp[layer].componentStyles['prestige-button']"></prestige-button>
+										</td>
+										<td>
+											<bar :layer = "layer" data = "2"></bar>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<bar :layer = "layer" data = "3"></bar>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	`
+	})
+
 	// SYSTEM COMPONENTS
 	Vue.component('node-mark', systemComponents['node-mark'])
 	Vue.component('tab-buttons', systemComponents['tab-buttons'])
