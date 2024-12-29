@@ -1,15 +1,6 @@
 "use strict";
 
-{
-    const sharedStyles = {
-        "border-radius": "8px",
-        "width": "60px",
-        "height": "60px",
-        "min-height": "60px",
-        "font-size": "12px",
-        "margin": "4px",
-    }
-    
+{    
     const blank = ["blank", ["68px", "68px"]]
     const clickable = (id) => ["clickable", id]
     
@@ -35,6 +26,16 @@
     
     addLayer("table", {
         type: "none",
+        componentStyles: {
+            "clickable": {
+                "border-radius": "8px",
+                "width": "60px",
+                "height": "60px",
+                "min-height": "60px",
+                "font-size": "12px",
+                "margin": "4px",
+            },
+        },
         tabFormat: [
             ["raw-html", "<h1 style='color: #3660e0'>The Periodic Table</h1>"],
             "blank",
@@ -105,12 +106,10 @@
                     ? {
                         "background-color": "#404040",
                         "color": "#000000",
-                        ...sharedStyles,
                     } 
                     : {
                         "background-color": element.color,
                         "color": "#ffffff",
-                        ...sharedStyles,
                     }
     
                 clickable.canClick = () => !tmp.table.clickables[i].locked

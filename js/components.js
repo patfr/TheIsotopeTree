@@ -612,23 +612,13 @@ function loadVue() {
 								<table id="activation-content">
 									<tr>
 										<td>
-											<div v-bind:class="{ 'accelerator-content-requirement': true, 'requirement-met': data }"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<bar :layer = "layer" data = "1"></bar>
+											<bar :layer = "layer" data = "progress1"></bar>
 										</td>
 										<td>
-											<prestige-button :layer = "layer" v-bind:style="tmp[layer].componentStyles['prestige-button']"></prestige-button>
+											<prestige-button id="activation-button" :layer = "layer" v-bind:style="tmp[layer].componentStyles['prestige-button']"></prestige-button>
 										</td>
 										<td>
-											<bar :layer = "layer" data = "2"></bar>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<bar :layer = "layer" data = "3"></bar>
+											<bar :layer = "layer" data = "progress2"></bar>
 										</td>
 									</tr>
 								</table>

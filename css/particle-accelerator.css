@@ -41,3 +41,17 @@
     border-color: #7f7f7f;
     border-style: solid;
 }
+
+#activation-button {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #550000 !important;
+}
+
+#activation-button.can {
+    background-color: #cc1111 !important;
+    
+}
