@@ -1,6 +1,28 @@
 "use strict";
 
 const changelogContent = {
+    "v2.0.0": {
+        date: "29/12/24",
+        added: [
+            "Particle Accelerator visual",
+            "Element lore",
+            "Helium Layer",
+            "Helium Isotopes",
+            "One Achievement",
+            "Nine Milestones",
+            "Three Buyables",
+        ],
+        changed: [
+            "Important tabs now stay open when you switch between them",
+            "Moved Particle Accelerator requirements to the top of the tab",
+            "Endgame to <details style='display: inline'><summary>Spolier click to open</summary>16 Isotopes</details>",
+        ],
+        technical: [
+            "Changed the way the Particle Accelerator requirements are handled",
+            "Changed how styles for components are handled",
+            "Changed how isotopes are handled",
+        ],
+    },
     "v1.0.2": {
         date: "04/11/24",
         balancing: [
@@ -48,6 +70,15 @@ const changelogContent = {
 function getChangelogContent() {
     const content = []
 
+    content.push(["raw-html", "<h1 style='color: #559bb5'>Changelog</h1>"], "blank", "blank")
+    content.push(
+        ["raw-html", "v<h2 style='color: #ff7369'>a</h2><h2>.</h2><h2 style='color: #84ff69'>b</h2><h2>.</h2><h2 style='color: #f2e97e'>c</h2>"],
+        "blank",
+        ["raw-html", "<h4 style='color: #ff7369'>a - Major update</h4>"],
+        ["raw-html", "<h4 style='color: #84ff69'>b - Minor update</h4>"],
+        ["raw-html", "<h4 style='color: #f2e97e'>c - Patch</h4>"]
+    )
+
     Object.keys(changelogContent).forEach(version => {
         if (content.length !== 0)
             content.push("blank", "blank", "blank")
@@ -88,6 +119,8 @@ function getChangelogContent() {
             content.push(["raw-html", `<ul style="padding-left: 0">${changelog.technical.reduce((acc, v) => `${acc}<li style="text-align: left; color: #bdbdbd">- ${v}</li>`, "")}</ul>`])
         }
     })
+
+    content.push("blank", "blank", "blank")
 
     return content
 }

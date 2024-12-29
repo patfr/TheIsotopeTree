@@ -1,13 +1,14 @@
 "use strict";
 
 {
-    const sharedAchievementStyles = {
-        "border-radius": "8px",
-        "margin": "4px",
-    }
-
     addLayer("achievements", { 
         type: "none",
+        componentStyles: {
+            "achievement": {
+                "border-radius": "8px",
+                "margin": "4px",
+            },
+        },
         achievements: {
             11: {
                 name: "Hydrogen",
@@ -15,7 +16,12 @@
                 done() { return player.points.gte(7) && hasUpgrade("H", 34) },
                 effect() { return player.achievements.achievements.length },
                 unlocked: true,
-                style: sharedAchievementStyles,
+            },
+            12: {
+                name: "Helium",
+                tooltip: "Get all Helium Isotopes.",
+                done() { return player.points.gte(16) && hasUpgrade("H", 34) },
+                unlocked: () => hasAchievement("achievements", 11),
             },
         },
         tabFormat: [

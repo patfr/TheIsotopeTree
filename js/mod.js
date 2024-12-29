@@ -26,7 +26,7 @@ let modInfo = {
 }
 
 let VERSION = {
-	num: "1.0.2",
+	num: "2.0.0",
 	name: "Release",
 }
 
@@ -57,7 +57,7 @@ let displayThings = [
 ]
 
 function isEndgame() {
-	return hasUpgrade("H", 35)
+	return player.accelerator.points.gte(16) //hasUpgrade("H", 35)
 }
 
 const backgroundStyle = {

@@ -27,7 +27,7 @@ addLayer("tree-tab", {
             Object.keys(elements).forEach(key => {
                 elementTabs[elements[key].symbol] = {
                     embedLayer: elements[key].symbol,
-                    unlocked: () => player.subtabs["tree-tab"].mainTabs === elements[key].symbol,
+                    unlocked: () => Decimal.gte(player.points, elements[key].unlockedAt),
                     buttonStyle: { "border-color": elements[key].color },
                 }
             })
