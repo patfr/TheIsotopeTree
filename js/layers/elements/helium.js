@@ -59,9 +59,13 @@
         },
         effectDescription: () => `which multiplies Hydrogen gain by x${format(tmp.He.effect)}`,
         heightGain: () => {
-            let gain = player.He.points
+            let gain = player.He.best
 
             gain = gain.mul(tmp.He.buyables[12].effect)
+            
+            if (hasMilestone("He", 3)) gain = gain.mul(3)
+            if (hasMilestone("accelerator", 5)) gain = gain.mul(Decimal.pow(2, player.accelerator.points.sub(8).max(0)))
+            if (hasMilestone("accelerator", 6)) gain = gain.mul(10)
 
             return gain
         },
@@ -69,6 +73,8 @@
             let power = new Decimal(2.5)
 
             power = power.sub(tmp.He.buyables[13].effect)
+
+            if (hasMilestone("He", 4)) power = power.sub(0.05)
 
             return power
         },
@@ -93,14 +99,29 @@
         },
         milestones: {
             1: {
-                requirementDescription: "1 Total Helium",
+                requirementDescription: "1 Total Helium (1)",
                 effectDescription: "Per Isotope after 7 keep two Hydrogen upgrades on Helium and Accelerator resets.",
                 done: () => player.He.total.gte(1),
             },
             2: {
-                requirementDescription: "Best Altitude of 5m",
+                requirementDescription: "Best Altitude of 5m (2)",
                 effectDescription: "Unlock three buyables.",
                 done: () => player.He.height.best.gte(5),
+            },
+            3: {
+                requirementDescription: "Best Altitude of 1,000m (3)",
+                effectDescription: "x3 Altitude gain.",
+                done: () => player.He.height.best.gte(1000),
+            },
+            4: {
+                requirementDescription: "Best Altitude of 12,500m (4)",
+                effectDescription: "Subtract 0.05 from altitude reduction power.",
+                done: () => player.He.height.best.gte(1.25e4),
+            },
+            5: {
+                requirementDescription: "8 Levels of Helium Purifier (5)",
+                effectDescription: "Half the base of the exponent in the Helium Purifier cost formula.",
+                done: () => getBuyableAmount("He", 13).gte(8),
             },
         },
         buyables: {
@@ -117,7 +138,7 @@
                     <h3>Effect: x${format(tmp.He.buyables[this.id].effect)}<br> Helium</h3>
                 ` },
                 purchaseLimit: 5000,
-                cost: (x) => Decimal.mul(10, Decimal.pow(5, Decimal.pow(x, 1.1))),
+                cost: (x) => Decimal.mul(7.5, Decimal.pow(9, Decimal.pow(x, 1.2))),
                 effect: (x) => Decimal.pow(3, x), 
                 canAfford() { return player.He.height.points.gte(tmp.He.buyables[this.id].cost) },
                 canBuy() { return tmp.He.buyables[this.id].canAfford },
@@ -135,7 +156,7 @@
                 display() { return `
                     <h2>Altitude<br>Booster</h2>
                     <br>
-                    <h3>Per level gain x5 Altitude</h3>
+                    <h3>Per level gain x10 Altitude</h3>
                     <br>
                     <h3>Level: ${formatWhole(getBuyableAmount(this.layer, this.id))}</h3>
                     <br>
@@ -144,15 +165,15 @@
                     <h3>Effect: x${format(tmp.He.buyables[this.id].effect)}<br> Altitude</h3>
                 ` },
                 purchaseLimit: 5000,
-                cost: (x) => Decimal.mul(100, Decimal.pow(5, Decimal.pow(x, 1.1))),
-                effect: (x) => Decimal.pow(5, x), 
+                cost: (x) => Decimal.mul(50, Decimal.pow(7.5, Decimal.pow(x, 1.2))),
+                effect: (x) => Decimal.pow(10, x), 
                 canAfford() { return player.He.points.gte(tmp.He.buyables[this.id].cost) },
                 canBuy() { return tmp.He.buyables[this.id].canAfford },
                 buy() {
                     if (!this.canAfford())
                         return
 
-                    player.He.height.points = player.He.points.sub(this.cost()).max(0)
+                    player.He.points = player.He.points.sub(this.cost()).max(0)
 
                     setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 },
@@ -171,7 +192,7 @@
                     <h3>Effect: -${format(tmp.He.buyables[this.id].effect)}<br> to reduction power</h3>
                 ` },
                 purchaseLimit: 100,
-                cost: (x) => Decimal.mul(1e15, Decimal.pow(10, x)),
+                cost: (x) => Decimal.mul(1e15, Decimal.pow(hasMilestone("He", 5) ? 5 : 10, x)),
                 effect: (x) => Decimal.mul(0.001, x),
                 canAfford() { return player.H.points.gte(tmp.He.buyables[this.id].cost) },
                 canBuy() { return tmp.He.buyables[this.id].canAfford },
@@ -179,7 +200,7 @@
                     if (!this.canAfford())
                         return
 
-                    player.He.height.points = player.H.points.sub(this.cost()).max(0)
+                    player.H.points = player.H.points.sub(this.cost()).max(0)
 
                     setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
                 },
@@ -206,7 +227,7 @@
                     "blank",
                     ["raw-html", () => `You are gaining ${format(tmp.He.heightGain)}m/s of altitude before reduction`],
                     ["raw-html", () => `You are gaining x${format(tmp.He.heightReduction)} less altitude due to your current altitude`],
-                    ["raw-html", () => `You are gaining ${format(Decimal.div(tmp.He.heightGain, player.He.height.points.pow(tmp.He.heightReduction.sub(1))))}m/s altitude`],
+                    ["raw-html", () => `You are gaining ${format(Decimal.div(tmp.He.heightGain, player.He.height.points.pow(tmp.He.heightReduction.sub(1)).max(1)))}m/s altitude`],
                     ["raw-html", () => `Your altitude is multiplying Helium gain by x${format(tmp.He.heightEffect)}`],
                     "blank",
                     ["raw-html", "<i>Helium buyables are kept on Accelerator resets</i>"],
@@ -232,8 +253,12 @@
 
             let keep = ["milestones", "points", "total", "best", "height", "buyables"]
 
-            if (resettingLayer === "accelerator")
-                keep = ["milestones"]
+            if (resettingLayer === "accelerator") {
+                keep = ["milestones", "buyables"]
+                
+                if (hasMilestone("accelerator", 6)) keep.push("points", "total", "best")
+                if (hasMilestone("accelerator", 7)) keep.push("height")
+            }            
 
             layerDataReset("He", keep)
         },

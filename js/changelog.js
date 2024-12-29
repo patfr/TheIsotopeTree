@@ -2,17 +2,20 @@
 
 const changelogContent = {
     "v2.0.0": {
-        date: "28/12/24",
+        date: "29/12/24",
         added: [
             "Particle Accelerator visual",
             "Element lore",
             "Helium Layer",
             "Helium Isotopes",
             "One Achievement",
+            "Nine Milestones",
+            "Three Buyables",
         ],
         changed: [
             "Important tabs now stay open when you switch between them",
             "Moved Particle Accelerator requirements to the top of the tab",
+            "Endgame to <details style='display: inline'><summary>Spolier click to open</summary>16 Isotopes</details>",
         ],
         technical: [
             "Changed the way the Particle Accelerator requirements are handled",

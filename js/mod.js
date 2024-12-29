@@ -57,7 +57,7 @@ let displayThings = [
 ]
 
 function isEndgame() {
-	return false //hasUpgrade("H", 35)
+	return player.accelerator.points.gte(16) //hasUpgrade("H", 35)
 }
 
 const backgroundStyle = {

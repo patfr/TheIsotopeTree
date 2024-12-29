@@ -43,7 +43,7 @@ elementDefinitions.forEach((element, index) => {
                 isotopes.push({
                     protons: index + 1,
                     neutrons: element.isotopes[i],
-                    name: `<sup>${index + 1}</sup>${element.symbol}`,
+                    name: `<sup>${index + 1 + element.isotopes[i]}</sup>${element.symbol}`,
                 })
             }
 

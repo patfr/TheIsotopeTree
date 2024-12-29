@@ -2,13 +2,27 @@
 
 {
     const acceleratorRequirements = {
-        1: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(1.75e3)}, { type: "upgrade", layer: "H", id: 15}],
-        2: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(3.5e5)}, { type: "upgrade", layer: "H", id: 22}],
-        3: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(7.5e6)}, { type: "upgrade", layer: "H", id: 24}],
-        4: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(4e8)}, { type: "upgrade", layer: "H", id: 31}],
-        5: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(7.5e10)}, { type: "upgrade", layer: "H", id: 33}],
-        6: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(1e12)}, { type: "upgrade", layer: "H", id: 34}],
-        7: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(3.5e13)}, { type: "upgrade", layer: "H", id: 35}],
+        // Hydrogen Isotopes
+        1: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(1.75e3) }, { type: "upgrade", layer: "H", id: 15 }],
+        2: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(3.5e5) }, { type: "upgrade", layer: "H", id: 22 }],
+        3: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(7.5e6) }, { type: "upgrade", layer: "H", id: 24 }],
+        4: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(4e8) }, { type: "upgrade", layer: "H", id: 31 }],
+        5: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(7.5e10) }, { type: "upgrade", layer: "H", id: 33 }],
+        6: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(1e12) }, { type: "upgrade", layer: "H", id: 34 }],
+
+        // Helium Isotopes
+        7: [{ type: "currency", name: "Hydrogen", currency: () => player.H.points, amount: new Decimal(3.5e13) }, { type: "upgrade", layer: "H", id: 35 }],
+        8: [{ type: "currency", name: "Helium", currency: () => player.He.points, amount: new Decimal(10) }],
+        9: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(500) }],
+        10: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(5e3) }],
+        11: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(1.5e5) }],
+        12: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(1.5e6) }],
+        13: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(2e7) }],
+        14: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(2e8) }],
+        15: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(1e10) }, { type: "currency", name: "Helium", currency: () => player.He.points, amount: new Decimal(1e11)}],
+        
+        // Lithium Isotopes
+        //16: [{ type: "currency", name: "Altitude", currency: () => player.He.height.points, amount: new Decimal(2e10) }, { type: "currency", name: "Helium", currency: () => player.He.points, amount: new Decimal(2.5e11)}],
     }
 
     function getCurrentRequirements() {
@@ -75,28 +89,46 @@
         },
         milestones: {
             1: {
-                requirementDescription: "2 Isotopes",
+                requirementDescription: "2 Isotopes (1)",
                 effectDescription: "Double Hydrogen gain. Unlock more Hydrogen upgrades based on Hydrogen Isotopes.",
                 done() { return player.accelerator.points.gte(2) },
                 unlocked() { return player.accelerator.points.gte(2) },
             },
             2: {
-                requirementDescription: "3 Isotopes",
+                requirementDescription: "3 Isotopes (2)",
                 effectDescription: "Double Hydrogen gain. Again.",
                 done() { return player.accelerator.points.gte(3) },
                 unlocked() { return hasMilestone("accelerator", 1) },
             },
             3: {
-                requirementDescription: "5 Isotopes",
+                requirementDescription: "5 Isotopes (3)",
                 effectDescription: "Double Hydrogen gain. Again. Lame.",
                 done() { return player.accelerator.points.gte(5) },
                 unlocked() { return hasMilestone("accelerator", 2) },
             },
             4: {
-                requirementDescription: "9 Isotopes",
+                requirementDescription: "9 Isotopes (4)",
                 effectDescription: "Double Helium gain per Isotope after 8.",
                 done() { return player.accelerator.points.gte(9) },
                 unlocked() { return hasMilestone("accelerator", 3) },
+            },
+            5: {
+                requirementDescription: "11 Isotopes (5)",
+                effectDescription: "Double Altitude gain per Isotope after 8.",
+                done() { return player.accelerator.points.gte(11) },
+                unlocked() { return hasMilestone("accelerator", 4) },
+            },
+            6: {
+                requirementDescription: "14 Isotopes (6)",
+                effectDescription: "x10 Altitude gain. Keep Helium.",
+                done() { return player.accelerator.points.gte(14) },
+                unlocked() { return hasMilestone("accelerator", 5) },
+            },
+            7: {
+                requirementDescription: "16 Isotopes (7)",
+                effectDescription: "Keep Altitude.",
+                done() { return player.accelerator.points.gte(16) },
+                unlocked() { return hasMilestone("accelerator", 6) },
             },
         },
         bars: {
