@@ -7,7 +7,7 @@
 
         return {
             "background": `linear-gradient(-40deg, ${c1} 0%, ${c1} 40%, ${c2} 40%, ${c2} calc(40% + 40px), ${c1} calc(40% + 40px), ${c1} 100%)`,
-            "color": canBuy ? "black" : "white",
+            //"color": canBuy ? "black" : "white",
         }
     }
 
@@ -226,7 +226,7 @@
                     ["raw-html", () => `<span>Your best altitude is </span><h2 style="color: ${elementColors.nobleGases};text-shadow: ${elementColors.nobleGases} 0px 0px 10px">${format(player.He.height.best)}</h2><span>m</span>`],
                     "blank",
                     ["raw-html", () => `You are gaining ${format(tmp.He.heightGain)}m/s of altitude before reduction`],
-                    ["raw-html", () => `You are gaining x${format(tmp.He.heightReduction)} less altitude due to your current altitude`],
+                    ["raw-html", () => `Your altitude gain is being reduced by Altitude^${format(Decimal.div(1, tmp.He.heightReduction))}`],
                     ["raw-html", () => `You are gaining ${format(Decimal.div(tmp.He.heightGain, player.He.height.points.pow(tmp.He.heightReduction.sub(1)).max(1)))}m/s altitude`],
                     ["raw-html", () => `Your altitude is multiplying Helium gain by x${format(tmp.He.heightEffect)}`],
                     "blank",
